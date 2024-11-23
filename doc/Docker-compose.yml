@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend  # Path to the backend directory
+    ports:
+      - "5000:5000"  # Expose backend service on port 5000
+    volumes:
+      - ./backend:/app  # This is fine if you want live updates in development (can be removed in production)
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend  # Path to the frontend directory
+    ports:
+      - "3000:80"  # Expose frontend service on port 3000
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge  # Explicitly specifying the bridge network driver
